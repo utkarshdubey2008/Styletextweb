@@ -38,14 +38,15 @@ fonts.forEach(font => {
 
 // Copy functionality
 copyButton.addEventListener('click', () => {
-  const textToCopy = outputText.textContent; // Get the styled text
-  navigator.clipboard.writeText(textToCopy) // Copy text to clipboard
-    .then(() => {
-      alert('Text copied to clipboard!'); // Confirmation message
-    })
-    .catch(err => {
-      console.error('Failed to copy text: ', err); // Error handling
-    });
+  const styledText = `<span style="font-family: ${outputText.style.fontFamily};">${outputText.innerHTML}</span>`;
+  const el = document.createElement('textarea'); // Create a temporary textarea
+  el.value = styledText; // Set its value to the styled text
+  document.body.appendChild(el);
+  el.select(); // Select the text
+  document.execCommand('copy'); // Copy the text
+  document.body.removeChild(el); // Remove the textarea
+
+  alert('Styled text copied to clipboard!'); // Confirmation message
 });
 
 // Update output text when input changes
