@@ -20,7 +20,6 @@ const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('styledText');
 const fontButtons = document.getElementById('fontButtons');
 const copyButton = document.getElementById('copyButton');
-const hiddenTextarea = document.getElementById('hiddenTextarea');
 
 // Display buttons
 fonts.forEach(font => {
@@ -40,15 +39,13 @@ fonts.forEach(font => {
 
 // Copy functionality
 copyButton.addEventListener('click', () => {
-  // Set the value of the hidden textarea to the inner HTML of the output
-  hiddenTextarea.value = outputText.innerHTML; 
-
-  // Select the hidden textarea content
-  hiddenTextarea.select();
-  hiddenTextarea.setSelectionRange(0, 99999); // For mobile devices
-
-  // Execute the copy command
+  // Create a temporary textarea element to copy styled text
+  const tempTextarea = document.createElement('textarea');
+  tempTextarea.value = outputText.innerHTML; // Use inner HTML to retain formatting
+  document.body.appendChild(tempTextarea);
+  tempTextarea.select();
   document.execCommand('copy');
+  document.body.removeChild(tempTextarea); // Clean up
 
   alert('Styled text copied to clipboard!'); // Confirmation message
 });
