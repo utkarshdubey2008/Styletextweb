@@ -20,6 +20,7 @@ const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('styledText');
 const fontButtons = document.getElementById('fontButtons');
 const copyButton = document.getElementById('copyButton');
+const hiddenTextarea = document.getElementById('hiddenTextarea');
 
 // Display buttons
 fonts.forEach(font => {
@@ -29,8 +30,8 @@ fonts.forEach(font => {
 
   // Change font on button click
   button.addEventListener('click', () => {
-    outputText.textContent = inputText.value; // Update the output text with input value
-    outputText.style.fontFamily = font; // Change font
+    const styledText = `<span style="font-family: '${font}';">${inputText.value}</span>`;
+    outputText.innerHTML = styledText; // Update output text with formatted HTML
     outputText.focus(); // Focus on output area for easier copying
   });
 
@@ -39,26 +40,20 @@ fonts.forEach(font => {
 
 // Copy functionality
 copyButton.addEventListener('click', () => {
-  const range = document.createRange();
-  range.selectNode(outputText);
-  window.getSelection().removeAllRanges(); // Clear current selection
-  window.getSelection().addRange(range); // Select the styled text
+  // Set the value of the hidden textarea to the inner HTML of the output
+  hiddenTextarea.value = outputText.innerHTML; 
 
-  try {
-    const successful = document.execCommand('copy'); // Copy the text
-    if (successful) {
-      alert('Styled text copied to clipboard!'); // Confirmation message
-    } else {
-      alert('Failed to copy text.'); // Failure message
-    }
-  } catch (err) {
-    alert('Oops, unable to copy.'); // Catch error
-  }
+  // Select the hidden textarea content
+  hiddenTextarea.select();
+  hiddenTextarea.setSelectionRange(0, 99999); // For mobile devices
 
-  window.getSelection().removeAllRanges(); // Clear selection after copying
+  // Execute the copy command
+  document.execCommand('copy');
+
+  alert('Styled text copied to clipboard!'); // Confirmation message
 });
 
 // Update output text when input changes
 inputText.addEventListener('input', () => {
-  outputText.textContent = inputText.value; // Update output text as user types
+  outputText.innerHTML = inputText.value; // Update output text as user types
 });
