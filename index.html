@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stylish Text Generator</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Stylish Text Generator</h1>
-    <input type="text" id="inputText" placeholder="Type here..." />
-
-    <div id="fontButtons" class="font-container"></div>
-
-    <div class="output" id="styledText" contenteditable="false"></div>
-    <button id="copyButton" class="copy-button">Copy</button>
-  </div>
-
-  <script src="scripts.js"></script>
+    <div class="chat-container">
+        <div id="chat-box">
+            <div class="message bot">Hello! I'm your AI chatbot. How can I help you?</div>
+        </div>
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button id="send-btn">Send</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
